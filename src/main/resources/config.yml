@@ -1,0 +1,25 @@
+#choose to use "form" or "standard" message to display stats
+#methods => "form" "standard"
+view-stats: "standard"
+
+#-----------------------------------------------------------------------------------------------------------------------
+# DATA STORING!!!
+#
+# How you want to store data
+#
+# - online database (use if you have more than one server and want to sync nicknames across servers)
+# - local database (DEFAULT) (use if you only have one single server)
+#-----------------------------------------------------------------------------------------------------------------------
+
+# - local - online
+# - Local currently not supported, use online..
+database-type: "online"
+
+#if database is online... please enter credentials
+uri: ""
+database: ""
+collection: ""
+
+#if database is run on a local machine
+host: ""
+port: ""

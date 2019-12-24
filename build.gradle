@@ -13,6 +13,9 @@ repositories {
     maven {
         url "https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-core"
     }
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 dependencies {
@@ -20,6 +23,7 @@ dependencies {
     implementation "org.mongodb:bson:3.11.0"
     implementation "org.mongodb:mongodb-driver:3.11.0"
     implementation "org.mongodb:mongodb-driver-core:3.11.0"
+    implementation "com.github.TimelessMC:NukkitDB:8e1d40220e2d21921d0aa7065459d7c4859bf963"
 }
 
 jar {

@@ -11,7 +11,6 @@ import com.steve.nukkit.AfterLife.events.CustomEvent;
 import com.steve.nukkit.AfterLife.events.FormResponseEvent;
 import com.steve.nukkit.AfterLife.events.JoinEvent;
 import com.steve.nukkit.AfterLife.handler.Mongodb;
-import org.bson.Document;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,15 +42,16 @@ public class Main extends PluginBase {
         this.getServer().getPluginManager().registerEvents(new CustomEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new FormResponseEvent(), this);
 
-        // creates connection to mongodb database
-        Mongodb.connect();
-
         // registers api methods
         api = new AfterLife();
 
-        // registers users stats profile
-        for (Document document: Mongodb.getAll()) {
-            this.getLogger().info("Loaded "+document.getString("name")+"'s Leaderboard");
+        // registers MongoDB database methods
+        if (this.getServer().getPluginManager().getPlugin("NukkitDB") != null) {
+            new Mongodb(this, (NukkitDB.Main) this.getServer().getPluginManager().getPlugin("NukkitDB"));
+        } else {
+            this.getLogger().error("NukkitDB plugin library is not installed!");
+            this.getLogger().error("Plugin will not function as intended... (disabling)");
+            this.getServer().getPluginManager().disablePlugin(this);
         }
 
         // registers search form
@@ -59,14 +59,7 @@ public class Main extends PluginBase {
         ElementInput input = new ElementInput("", "enter player's FULL name");
         form.addElement(input);
         forms.put("searchForm", form);
-        System.out.println(forms);
-
-    }
-
-    @Override
-    public void onDisable() {
-        // stops connection to mongodb database
-        Mongodb.close();
+        Mongodb.query("AtomizationYT", "name");
     }
 
     /**

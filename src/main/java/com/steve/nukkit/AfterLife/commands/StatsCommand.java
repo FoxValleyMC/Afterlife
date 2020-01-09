@@ -34,7 +34,12 @@ public class StatsCommand extends PluginCommand {
                     sendProfile((Player) sender, sender.getName());
                     break;
                 case 1:
-                    sendProfile((Player) sender, args[0]);
+                    Player player = this.getPlugin().getServer().getPlayer(args[0]);
+                    if (player != null) {
+                        sendProfile((Player) sender, player.getName());
+                    } else {
+                        sendProfile((Player) sender, args[0]);
+                    }
                     break;
             }
         } else {

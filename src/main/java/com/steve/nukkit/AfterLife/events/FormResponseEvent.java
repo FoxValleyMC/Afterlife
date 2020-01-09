@@ -1,6 +1,7 @@
 package com.steve.nukkit.AfterLife.events;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
@@ -30,7 +31,12 @@ public class FormResponseEvent implements Listener {
         if (response instanceof FormResponseCustom) {
             FormResponseCustom customResponse = (FormResponseCustom) response;
             if (event.getFormID() == 1) {
-                sendProfile(player, customResponse.getInputResponse(0));
+                Player playerType = Server.getInstance().getPlayer(customResponse.getInputResponse(0));
+                if (playerType != null) {
+                    sendProfile(player, playerType.getName());
+                } else {
+                    sendProfile(player, customResponse.getInputResponse(0));
+                }
             }
         }
     }

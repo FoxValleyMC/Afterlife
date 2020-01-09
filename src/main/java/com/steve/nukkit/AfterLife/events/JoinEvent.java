@@ -29,7 +29,7 @@ public class JoinEvent implements Listener {
             document.append("deaths", 0);
             document.append("experience", 0);
             document.append("levels", 0);
-            document.append("name", player.getName());
+            document.append("name", player.getName().toLowerCase());
             Mongodb.createNew(document);
         }
 

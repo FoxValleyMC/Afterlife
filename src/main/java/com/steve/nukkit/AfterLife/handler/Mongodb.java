@@ -18,7 +18,7 @@ public class Mongodb {
     public static Document query(String key, String fieldName) {
         String database = plugin.getConfig().getString("database");
         String collection = plugin.getConfig().getString("collection");
-        return nukkitDB.get().query(key, fieldName, database, collection);
+        return nukkitDB.get().query(key, fieldName.toLowerCase(), database, collection);
     }
 
     public static List<Document> getAll() {

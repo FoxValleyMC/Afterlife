@@ -18,7 +18,7 @@ public class Mongodb {
     public static Document query(String key, String fieldName) {
         String database = plugin.getConfig().getString("database");
         String collection = plugin.getConfig().getString("collection");
-        return nukkitDB.get().query(key, fieldName.toLowerCase(), database, collection);
+        return nukkitDB.get().query(key.toLowerCase(), fieldName, database, collection);
     }
 
     public static List<Document> getAll() {
@@ -30,7 +30,7 @@ public class Mongodb {
     }
 
     public static void update(String query, String key, Integer value) {
-        nukkitDB.get().updateDocument("uuid", query, key, value.toString(), plugin.getConfig().getString("database"), plugin.getConfig().getString("collection"));
+        nukkitDB.get().updateDocument("uuid", query, key.toLowerCase(), value.toString(), plugin.getConfig().getString("database"), plugin.getConfig().getString("collection"));
     }
 
 }

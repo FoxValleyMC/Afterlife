@@ -19,19 +19,19 @@ public class AfterLife {
         levels = new Levels();
     }
 
-    public int GetLevels(String uuid) {
+    public String GetLevels(String uuid) {
         return  levels.get(uuid);
     }
 
-    public int GetExperience(String uuid) {
+    public String GetExperience(String uuid) {
         return experience.get(uuid);
     }
 
-    public int GetKills(String uuid) {
+    public String GetKills(String uuid) {
         return  kills.get(uuid);
     }
 
-    public int GetDeaths(String uuid) {
+    public String GetDeaths(String uuid) {
         return deaths.get(uuid);
     }
 }

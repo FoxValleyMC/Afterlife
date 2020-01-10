@@ -59,8 +59,9 @@ public class StatsCommand extends PluginCommand {
                     sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+query.getString("name")+"'s leaderboard!"+TextFormat.GREEN+" =");
                     sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Levels: "+TextFormat.WHITE+plugin.Api().GetLevels(query.getString("uuid")));
                     sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Experience: "+TextFormat.WHITE+plugin.Api().GetExperience(query.getString("uuid")));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Kills: "+TextFormat.WHITE+plugin.Api().GetKills(query.getString("uuid")));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Deaths: "+TextFormat.WHITE+plugin.Api().GetDeaths(query.getString("uuid")));
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Kills: "+TextFormat.WHITE+plugin.Api().GetKills(query.getString("uuid")));
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Highest Kill-streak: "+TextFormat.WHITE+plugin.Api().GetStreaks(query.getString("uuid")));
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Deaths: "+TextFormat.WHITE+plugin.Api().GetDeaths(query.getString("uuid")));
                     sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+"Usage: /stats <name>"+TextFormat.GREEN+" =");
                     break;
                 case "form":
@@ -68,8 +69,9 @@ public class StatsCommand extends PluginCommand {
                     String content =
                             "Levels: "+plugin.Api().GetLevels(query.getString("uuid"))+"\n"+
                             "Experience: "+plugin.Api().GetExperience(query.getString("uuid"))+"\n"+
-                            "Kills: "+plugin.Api().GetKills(query.getString("uuid"))+"\n"+
-                            "Deaths: "+plugin.Api().GetDeaths(query.getString("uuid"))+"\n";
+                            "Most Kills: "+plugin.Api().GetKills(query.getString("uuid"))+"\n"+
+                            "Highest Kill-streak: "+plugin.Api().GetStreaks(query.getString("uuid"))+"\n"+
+                            "Most Deaths: "+plugin.Api().GetDeaths(query.getString("uuid"))+"\n";
 
                     FormWindowModal form = new FormWindowModal(title, content, "search", "close");
                     sender.showFormWindow(form, 0);

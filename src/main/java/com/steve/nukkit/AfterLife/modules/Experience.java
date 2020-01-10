@@ -44,7 +44,7 @@ public class Experience {
     }
 
     public String get(String uuid) {
-        return Mongodb.query(uuid, "uuid").getString("experience");
+        return Mongodb.query(uuid, "uuid").getString("global-xp");
     }
 
 }

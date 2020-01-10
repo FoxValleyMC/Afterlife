@@ -1,5 +1,6 @@
 package com.steve.nukkit.AfterLife;
 
+import com.steve.nukkit.AfterLife.handler.Mongodb;
 import com.steve.nukkit.AfterLife.modules.Deaths;
 import com.steve.nukkit.AfterLife.modules.Experience;
 import com.steve.nukkit.AfterLife.modules.Kills;
@@ -29,6 +30,10 @@ public class AfterLife {
 
     public String GetKills(String uuid) {
         return  kills.get(uuid);
+    }
+
+    public String GetStreaks(String uuid) {
+        return Mongodb.query(uuid, "uuid").getString("kill-streak");
     }
 
     public String GetDeaths(String uuid) {

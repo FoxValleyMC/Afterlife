@@ -9,9 +9,9 @@ import com.steve.nukkit.AfterLife.handler.Mongodb;
 public class Experience {
 
     public void add(String uuid, Integer amount) {
-        int xp = Mongodb.query(uuid, "uuid").getInteger("experience") + amount;
+        int xp = Integer.parseInt(Mongodb.query(uuid, "uuid").getString("experience")) + amount;
         int abs = Math.abs(xp - Main.getPlugin().getConfig().getInt("xp-levelup-amount"));
-
+        Mongodb.update(uuid, "global-xp", xp);
         if (xp >= Main.getPlugin().getConfig().getInt("xp-levelup-amount")) {
             AfterLife.levels.add(uuid, 1);
             Mongodb.update(uuid, "experience", abs);
@@ -21,11 +21,12 @@ public class Experience {
     }
 
     public void remove(String uuid, Integer amount) {
-        int xp = Mongodb.query(uuid, "uuid").getInteger("experience") - amount;
-        int abs = Math.abs(Mongodb.query(uuid, "uuid").getInteger("experience") - amount);
+        int xp = Integer.parseInt(Mongodb.query(uuid, "uuid").getString("experience")) - amount;
+        int global_xp = Integer.parseInt(Mongodb.query(uuid, "uuid").getString("global-xp")) - amount;
+        int abs = Math.abs(Integer.parseInt(Mongodb.query(uuid, "uuid").getString("experience")) - amount);
         int difference = Math.abs(Main.getPlugin().getConfig().getInt("xp-levelup-amount") - abs);
 
-        int levels = Mongodb.query(uuid, "uuid").getInteger("levels");
+        int levels = Integer.parseInt(Mongodb.query(uuid, "uuid").getString("levels"));
 
         if (xp < 0) {
             if (levels > 0) {
@@ -38,10 +39,12 @@ public class Experience {
             Mongodb.update(uuid, "experience", xp);
         }
 
+        Mongodb.update(uuid, "global-xp", Math.max(global_xp, 0));
+
     }
 
-    public int get(String uuid) {
-        return Mongodb.query(uuid, "uuid").getInteger("experience");
+    public String get(String uuid) {
+        return Mongodb.query(uuid, "uuid").getString("experience");
     }
 
 }

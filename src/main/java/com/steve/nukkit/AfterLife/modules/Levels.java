@@ -5,15 +5,15 @@ import com.steve.nukkit.AfterLife.handler.Mongodb;
 public class Levels {
 
     public void add(String uuid, Integer amount) {
-        Mongodb.update(uuid, "levels", Mongodb.query(uuid, "uuid").getInteger("levels") + amount);
+        Mongodb.update(uuid, "levels", Integer.parseInt(Mongodb.query(uuid, "uuid").getString("levels")) + amount);
     }
 
     public void remove(String uuid, Integer amount) {
-        Mongodb.update(uuid, "levels", Mongodb.query(uuid, "uuid").getInteger("levels") - amount);
+        Mongodb.update(uuid, "levels", Integer.parseInt(Mongodb.query(uuid, "uuid").getString("levels")) - amount);
     }
 
-    public int get(String uuid) {
-        return Mongodb.query(uuid, "uuid").getInteger("levels");
+    public String get(String uuid) {
+        return Mongodb.query(uuid, "uuid").getString("levels");
     }
 
 }

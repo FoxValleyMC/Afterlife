@@ -25,11 +25,13 @@ public class JoinEvent implements Listener {
         if (Mongodb.query(uuid, "uuid") == null) {
             Document document = new Document();
             document.append("uuid", uuid);
-            document.append("kills", 0);
-            document.append("deaths", 0);
-            document.append("experience", 0);
-            document.append("levels", 0);
             document.append("name", player.getName().toLowerCase());
+            document.append("kills", "0");
+            document.append("kill-streak", "0");
+            document.append("deaths", "0");
+            document.append("experience", "0");
+            document.append("global-xp", "0");
+            document.append("levels", "0");
             Mongodb.createNew(document);
         }
 

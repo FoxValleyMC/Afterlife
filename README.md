@@ -1,14 +1,8 @@
 # Important!
+This plugin requires <a href="https://github.com/TimelessMC/NukkitDB">NukkitDB</a> plugin to work!
 
-If running this plugin from source, you will need the <a href="https://poggit.pmmp.io/p/DEvirion">DEvirion</a> plugin and the <a href="https://poggit.pmmp.io/ci/Atomization/gui/gui">gui library</a> **ONLY** if you wish to use forms as the method to display stats; 
-**AND** you will need <a href="https://poggit.pmmp.io/ci/poggit/libasynql/libasynql">libasynql</a> if you wish to sync data across all your servers!
-
-# AfterLife Features
+# AfterLife Features [![HitCount](http://hits.dwyl.io/TimelessMC/Afterlife.svg)](http://hits.dwyl.io/TimelessMC/Afterlife)
 Fully featured kill/death scoring plugin with custom death event!
-
-<p align="center">
- <a href="http://hits.dwyl.io/TimelessMC/Afterlife"><img src="http://hits.dwyl.io/TimelessMC/Afterlife.svg"></a>
-</p>
 
  - [x] The ability to sync data across multiple servers in a network
  - [x] Score points on Kill! `(+ gain xp)`

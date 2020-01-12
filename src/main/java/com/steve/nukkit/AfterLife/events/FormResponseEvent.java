@@ -9,13 +9,15 @@ import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.form.response.FormResponse;
 import cn.nukkit.form.response.FormResponseCustom;
 import cn.nukkit.form.response.FormResponseModal;
-import cn.nukkit.form.window.FormWindowModal;
-import cn.nukkit.utils.TextFormat;
 import com.steve.nukkit.AfterLife.Main;
-import com.steve.nukkit.AfterLife.handler.Mongodb;
-import org.bson.Document;
 
 public class FormResponseEvent implements Listener {
+
+    private Main plugin;
+
+    public FormResponseEvent(Main plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = false)
     public void onFormSubmit(PlayerFormRespondedEvent event) {
@@ -33,50 +35,11 @@ public class FormResponseEvent implements Listener {
             if (event.getFormID() == 1) {
                 Player playerType = Server.getInstance().getPlayer(customResponse.getInputResponse(0));
                 if (playerType != null) {
-                    sendProfile(player, playerType.getName());
+                    plugin.sendProfile(player, playerType.getName());
                 } else {
-                    sendProfile(player, customResponse.getInputResponse(0));
+                    plugin.sendProfile(player, customResponse.getInputResponse(0));
                 }
             }
-        }
-    }
-
-    /**
-     * TODO: 12/22/2019
-     * remove duplicate code from `StatsCommand.java`
-     */
-    private void sendProfile(Player sender, String player) {
-
-        Document query = Mongodb.query(player, "name");
-
-        try {
-            switch (Main.getPlugin().getConfig().getString("view-stats")) {
-                case "standard":
-                    sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+query.getString("name")+"'s leaderboard!"+TextFormat.GREEN+" =");
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Levels: "+TextFormat.WHITE+Main.getPlugin().Api().GetLevels(query.getString("uuid")));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Experience: "+TextFormat.WHITE+Main.getPlugin().Api().GetExperience(query.getString("uuid")));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Kills: "+TextFormat.WHITE+Main.getPlugin().Api().GetKills(query.getString("uuid")));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Highest Kill-streak: "+TextFormat.WHITE+Main.getPlugin().Api().GetStreaks(query.getString("uuid")));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Deaths: "+TextFormat.WHITE+Main.getPlugin().Api().GetDeaths(query.getString("uuid")));
-                    sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+"Usage: /stats <name>"+TextFormat.GREEN+" =");
-                    break;
-                case "form":
-                    String title = query.getString("name")+"'s Leaderboard";
-                    String content =
-                            "Levels: "+Main.getPlugin().Api().GetLevels(query.getString("uuid"))+"\n"+
-                            "Experience: "+Main.getPlugin().Api().GetExperience(query.getString("uuid"))+"\n"+
-                            "Most Kills: "+Main.getPlugin().Api().GetKills(query.getString("uuid"))+"\n"+
-                            "Highest Kill-streak: "+Main.getPlugin().Api().GetStreaks(query.getString("uuid"))+"\n"+
-                            "Most Deaths: "+Main.getPlugin().Api().GetDeaths(query.getString("uuid"))+"\n";
-
-                    FormWindowModal form = new FormWindowModal(title, content, "search", "close");
-                    sender.showFormWindow(form, 0);
-                    break;
-                default:
-                    sender.sendMessage(TextFormat.RED+"An error occurred and could not display your game statistics!");
-            }
-        } catch (NullPointerException e) {
-            sender.sendMessage(TextFormat.RED+"Player does not exist in our database! "+TextFormat.WHITE+"(maybe name is incorrectly spelled?)");
         }
     }
 }

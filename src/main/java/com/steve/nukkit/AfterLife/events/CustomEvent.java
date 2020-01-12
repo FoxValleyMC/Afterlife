@@ -18,86 +18,108 @@ public class CustomEvent implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = false)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onEvent(EntityDamageEvent event) {
-        Player victim = (Player) event.getEntity();
-        Position level = this.plugin.getServer().getDefaultLevel().getSafeSpawn();
-        if (victim != null) {
-            if (event.getFinalDamage() >= victim.getHealth()){
-                event.setCancelled(true);
-                victim.setHealth(victim.getMaxHealth());
-                victim.teleport(level);
 
+        // player who is getting damaged
+        Player victim = (Player) event.getEntity();
+
+        // position to teleport to on death
+        Position position = plugin.getServer().getDefaultLevel().getSafeSpawn();
+
+        // check if victim is a player entity
+        if (victim != null) {
+
+            // check if victims health becomes lower than 1 minecraft heart value
+            if (event.getFinalDamage() >= victim.getHealth()) {
+
+                // cancel event and tp victim to spawn simulating players death (bypassing minecraft's death menu)
+                event.setCancelled(true);
+                victim.teleport(position);
+
+                // add to victims death and xp score
                 AfterLife.deaths.add(victim.getUniqueId().toString());
                 if (plugin.getConfig().getBoolean("use-levels")) {
                     AfterLife.experience.remove(victim.getUniqueId().toString(), plugin.getConfig().getInt("loose-xp-amount"));
                 }
 
-                switch (event.getCause()) {
-                    case CONTACT:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Was killed by contact with another block!");
-                        break;
-                    case ENTITY_ATTACK:
-                        plugin.getServer().broadcastMessage(victim.getName()+" was killed by another entity!");
-                        break;
-                    case PROJECTILE:
-                        plugin.getServer().broadcastMessage(victim.getName()+" was killed by a projectile attack!");
-                        break;
-                    case SUFFOCATION:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Suffocated in a wall!");
-                        break;
-                    case FALL:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Fell from a high place!");
-                        break;
-                    case FIRE:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Went up in flames!");
-                        break;
-                    case FIRE_TICK:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Burned to death!");
-                        break;
-                    case LAVA:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Tried to swim in lava!");
-                        break;
-                    case DROWNING:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Drown!");
-                        break;
-                    case BLOCK_EXPLOSION:
-                    case ENTITY_EXPLOSION:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Blew up!");
-                        break;
-                    case VOID:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Fell into the void!");
-                        break;
-                    case SUICIDE:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Committed suicide!");
-                        break;
-                    case MAGIC:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Was killed by magic!");
-                        break;
-                    case LIGHTNING:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Was struck by lightning!");
-                        break;
-                    case HUNGER:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Starved to death!");
-                        break;
-                    default:
-                        plugin.getServer().broadcastMessage(victim.getName()+" Died!");
-                }
+                // log death message
+                logMessage(event.getCause(), victim);
 
-            }
+                // if player was demonetized by another player
+                if (event instanceof EntityDamageByEntityEvent) {
 
-            if (event instanceof EntityDamageByEntityEvent) {
-                Player killer = (Player) ((EntityDamageByEntityEvent) event).getDamager();
-                if (killer != null) {
-                    AfterLife.deaths.add(victim.getUniqueId().toString());
-                    AfterLife.kills.add(killer.getUniqueId().toString());
-                    plugin.getServer().broadcastMessage(victim.getName()+" was killed by "+killer.getName());
-                    if (plugin.getConfig().getBoolean("use-levels")) {
-                        AfterLife.experience.remove(victim.getUniqueId().toString(), plugin.getConfig().getInt("loose-xp-amount"));
-                        AfterLife.experience.add(killer.getUniqueId().toString(), plugin.getConfig().getInt("add-xp-amount"));
+                    // player who executed the event
+                    Player killer = (Player) ((EntityDamageByEntityEvent) event).getDamager();
+
+                    // check if killer is a player entity
+                    if (killer != null) {
+
+                        // add kill and xp values to leaderboard score
+                        AfterLife.kills.add(killer.getUniqueId().toString());
+                        if (plugin.getConfig().getBoolean("use-levels")) {
+                            AfterLife.experience.add(killer.getUniqueId().toString(), plugin.getConfig().getInt("add-xp-amount"));
+                        }
+
+                        // log message
+                        plugin.getServer().broadcastMessage(victim.getName()+" was killed by "+killer.getName());
                     }
                 }
             }
         }
     }
+
+    private void logMessage(EntityDamageEvent.DamageCause damageCause, Player victim) {
+        switch (damageCause) {
+            case CONTACT:
+                plugin.getServer().broadcastMessage(victim.getName()+" Was killed by contact with another block!");
+                break;
+            case ENTITY_ATTACK:
+                plugin.getServer().broadcastMessage(victim.getName()+" was killed by another entity!");
+                break;
+            case PROJECTILE:
+                plugin.getServer().broadcastMessage(victim.getName()+" was killed by a projectile attack!");
+                break;
+            case SUFFOCATION:
+                plugin.getServer().broadcastMessage(victim.getName()+" Suffocated in a wall!");
+                break;
+            case FALL:
+                plugin.getServer().broadcastMessage(victim.getName()+" Fell from a high place!");
+                break;
+            case FIRE:
+                plugin.getServer().broadcastMessage(victim.getName()+" Went up in flames!");
+                break;
+            case FIRE_TICK:
+                plugin.getServer().broadcastMessage(victim.getName()+" Burned to death!");
+                break;
+            case LAVA:
+                plugin.getServer().broadcastMessage(victim.getName()+" Tried to swim in lava!");
+                break;
+            case DROWNING:
+                plugin.getServer().broadcastMessage(victim.getName()+" Drown!");
+                break;
+            case BLOCK_EXPLOSION:
+            case ENTITY_EXPLOSION:
+                plugin.getServer().broadcastMessage(victim.getName()+" Blew up!");
+                break;
+            case VOID:
+                plugin.getServer().broadcastMessage(victim.getName()+" Fell into the void!");
+                break;
+            case SUICIDE:
+                plugin.getServer().broadcastMessage(victim.getName()+" Committed suicide!");
+                break;
+            case MAGIC:
+                plugin.getServer().broadcastMessage(victim.getName()+" Was killed by magic!");
+                break;
+            case LIGHTNING:
+                plugin.getServer().broadcastMessage(victim.getName()+" Was struck by lightning!");
+                break;
+            case HUNGER:
+                plugin.getServer().broadcastMessage(victim.getName()+" Starved to death!");
+                break;
+            default:
+                plugin.getServer().broadcastMessage(victim.getName()+" Died!");
+        }
+    }
+
 }

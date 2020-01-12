@@ -59,11 +59,13 @@ no-PvP-in-level:
   - "world2"
   - "world3"
 
+
 # give effects to player on kill
-# in seconds for effects to last
+# EFFECT_ID:AMPLIFIER:DURATION
+# duration in 'ticks' 20 ticks = 1 second
 victory-effects:
-  - regeneration: 10
-  - speed: 5
+  - "10:2:200"
+  - "1:2:100"
 
 # connect to mongo db database - depend on "NukkitDb" plugin
 database: ""

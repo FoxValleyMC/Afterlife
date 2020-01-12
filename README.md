@@ -89,7 +89,7 @@ no-PvP-in-level:
 
 # give effects to player on kill
 # in seconds for effects to last
-victory-efects:
+victory-effects:
   - regeneration: 10
   - speed: 5
 

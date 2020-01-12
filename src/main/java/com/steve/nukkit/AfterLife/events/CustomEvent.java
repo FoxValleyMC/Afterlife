@@ -7,8 +7,11 @@ import cn.nukkit.event.Listener;
 import cn.nukkit.event.entity.EntityDamageByEntityEvent;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.level.Position;
+import cn.nukkit.potion.Effect;
 import com.steve.nukkit.AfterLife.AfterLife;
 import com.steve.nukkit.AfterLife.Main;
+
+import java.util.List;
 
 public class CustomEvent implements Listener {
 
@@ -33,9 +36,10 @@ public class CustomEvent implements Listener {
             // check if victims health becomes lower than 1 minecraft heart value
             if (event.getFinalDamage() >= victim.getHealth()) {
 
-                // cancel event and tp victim to spawn simulating players death (bypassing minecraft's death menu)
+                // cancel event and tp victim to spawn simulating players death
                 event.setCancelled(true);
                 victim.teleport(position);
+                victim.setHealth(victim.getMaxHealth());
 
                 // add to victims death and xp score
                 AfterLife.deaths.add(victim.getUniqueId().toString());
@@ -63,6 +67,16 @@ public class CustomEvent implements Listener {
 
                         // log message
                         plugin.getServer().broadcastMessage(victim.getName()+" was killed by "+killer.getName());
+
+                        // apply victory effects
+                        List<String> list = plugin.getConfig().getStringList("victory-effects");
+                        for (String string : list) {
+                            String[] a = string.split(":");
+                            Effect effect = Effect.getEffect(Integer.parseInt(a[0]));
+                            effect.setAmplifier(Integer.parseInt(a[1]));
+                            effect.setDuration(Integer.parseInt(a[2]));
+                            killer.addEffect(effect);
+                        }
                     }
                 }
             }

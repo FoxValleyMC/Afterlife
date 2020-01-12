@@ -87,6 +87,13 @@ no-PvP-in-level:
   - "world3"
 
 
+# give effects to player on kill
+# in seconds for effects to last
+victory-efects:
+  - regeneration: 10
+  - speed: 5
+
+
 # connect to mongo db database - depend on "NukkitDb" plugin
 database: ""
 collection: ""

@@ -1,7 +1,5 @@
 package com.steve.nukkit.AfterLife.modules;
 
-import cn.nukkit.Player;
-import cn.nukkit.utils.TextFormat;
 import com.steve.nukkit.AfterLife.AfterLife;
 import com.steve.nukkit.AfterLife.Main;
 import com.steve.nukkit.AfterLife.handler.Mongodb;
@@ -9,7 +7,7 @@ import com.steve.nukkit.AfterLife.handler.Mongodb;
 public class Experience {
 
     public void add(String uuid, Integer amount) {
-        int xp = Integer.parseInt(Mongodb.query(uuid, "uuid").getString("experience")) + amount;
+        int xp = Mongodb.query(uuid, "uuid").getInteger("experience") + amount;
         int abs = Math.abs(xp - Main.getPlugin().getConfig().getInt("xp-levelup-amount"));
         Mongodb.update(uuid, "global-xp", xp);
         if (xp >= Main.getPlugin().getConfig().getInt("xp-levelup-amount")) {
@@ -21,12 +19,12 @@ public class Experience {
     }
 
     public void remove(String uuid, Integer amount) {
-        int xp = Integer.parseInt(Mongodb.query(uuid, "uuid").getString("experience")) - amount;
-        int global_xp = Integer.parseInt(Mongodb.query(uuid, "uuid").getString("global-xp")) - amount;
-        int abs = Math.abs(Integer.parseInt(Mongodb.query(uuid, "uuid").getString("experience")) - amount);
+        int xp = Mongodb.query(uuid, "uuid").getInteger("experience") - amount;
+        int global_xp = Mongodb.query(uuid, "uuid").getInteger("global-xp") - amount;
+        int abs = Math.abs(Mongodb.query(uuid, "uuid").getInteger("experience") - amount);
         int difference = Math.abs(Main.getPlugin().getConfig().getInt("xp-levelup-amount") - abs);
 
-        int levels = Integer.parseInt(Mongodb.query(uuid, "uuid").getString("levels"));
+        int levels = Mongodb.query(uuid, "uuid").getInteger("levels");
 
         if (xp < 0) {
             if (levels > 0) {
@@ -43,8 +41,8 @@ public class Experience {
 
     }
 
-    public String get(String uuid) {
-        return Mongodb.query(uuid, "uuid").getString("global-xp");
+    public Integer get(String uuid) {
+        return Mongodb.query(uuid, "uuid").getInteger("global-xp");
     }
 
 }

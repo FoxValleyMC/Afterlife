@@ -42,7 +42,7 @@ public class Main extends PluginBase {
         this.saveDefaultConfig();
 
         // registers plugin event listeners
-        this.getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
+        this.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         this.getServer().getPluginManager().registerEvents(new CustomEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new FormResponseEvent(this), this);
 
@@ -51,7 +51,7 @@ public class Main extends PluginBase {
 
         // registers MongoDB database methods
         if (this.getServer().getPluginManager().getPlugin("NukkitDB") != null) {
-            new Mongodb(this, (NukkitDB.Main) this.getServer().getPluginManager().getPlugin("NukkitDB"));
+            new Mongodb(this);
         } else {
             this.getLogger().error("NukkitDB plugin library is not installed!");
             this.getLogger().error("Plugin will not function as intended... (disabling)");
@@ -77,7 +77,7 @@ public class Main extends PluginBase {
      * @apiNote returns api methods
      * @return AfterLife
      */
-    public AfterLife Api() {
+    private AfterLife Api() {
         return api;
     }
 

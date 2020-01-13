@@ -20,23 +20,23 @@ public class AfterLife {
         levels = new Levels();
     }
 
-    public String GetLevels(String uuid) {
-        return  levels.get(uuid);
+    Integer GetLevels(String uuid) {
+        return levels.get(uuid);
     }
 
-    public String GetExperience(String uuid) {
+    Integer GetExperience(String uuid) {
         return experience.get(uuid);
     }
 
-    public String GetKills(String uuid) {
-        return  kills.get(uuid);
+    Integer GetKills(String uuid) {
+        return kills.get(uuid);
     }
 
-    public String GetStreaks(String uuid) {
-        return Mongodb.query(uuid, "uuid").getString("kill-streak");
+    Integer GetStreaks(String uuid) {
+        return Mongodb.query(uuid, "uuid").getInteger("kill-streak");
     }
 
-    public String GetDeaths(String uuid) {
+    Integer GetDeaths(String uuid) {
         return deaths.get(uuid);
     }
 }

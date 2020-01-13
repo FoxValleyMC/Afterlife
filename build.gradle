@@ -23,7 +23,7 @@ dependencies {
     implementation "org.mongodb:bson:3.11.0"
     implementation "org.mongodb:mongodb-driver:3.11.0"
     implementation "org.mongodb:mongodb-driver-core:3.11.0"
-    implementation "com.github.TimelessMC:NukkitDB:bf42dbdcacba114fce1ccf31e81ee41577d13eb9"
+    implementation "com.github.TimelessMC:NukkitDB:1edfa0df9f4293f465edcb7e3206df4748df4e22"
 }
 
 jar {

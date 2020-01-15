@@ -5,6 +5,7 @@ import com.steve.nukkit.AfterLife.Main;
 import org.bson.Document;
 
 import java.util.List;
+import java.util.Map;
 
 public class Mongodb {
 
@@ -24,8 +25,8 @@ public class Mongodb {
         return null;
     }
 
-    public static void createNew(Document document) {
-        NukkitDB.insertDocument(document, plugin.getConfig().getString("database"), plugin.getConfig().getString("collection"));
+    public static void createNew(Map<String, Object> objectMap) {
+        NukkitDB.insertDocument(objectMap, plugin.getConfig().getString("database"), plugin.getConfig().getString("collection"));
     }
 
     public static void update(String query, String key, Integer value) {

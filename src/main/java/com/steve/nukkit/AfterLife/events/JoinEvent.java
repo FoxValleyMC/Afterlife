@@ -6,7 +6,9 @@ import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerJoinEvent;
 import com.steve.nukkit.AfterLife.handler.Mongodb;
-import org.bson.Document;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class JoinEvent implements Listener {
 
@@ -16,16 +18,16 @@ public class JoinEvent implements Listener {
         String uuid = player.getUniqueId().toString();
 
         if (Mongodb.query(uuid, "uuid") == null) {
-            Document document = new Document();
-            document.append("uuid", uuid);
-            document.append("name", player.getName().toLowerCase());
-            document.append("kills", 0);
-            document.append("kill-streak", 0);
-            document.append("deaths", 0);
-            document.append("experience", 0);
-            document.append("global-xp", 0);
-            document.append("levels", 0);
-            Mongodb.createNew(document);
+            Map<String, Object> objectMap = new HashMap<String, Object>();
+            objectMap.put("uuid", uuid);
+            objectMap.put("name", player.getName().toLowerCase());
+            objectMap.put("kills", 0);
+            objectMap.put("kill-streak", 0);
+            objectMap.put("deaths", 0);
+            objectMap.put("experience", 0);
+            objectMap.put("global-xp", 0);
+            objectMap.put("levels", 0);
+            Mongodb.createNew(objectMap);
         }
 
     }

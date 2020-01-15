@@ -14,7 +14,6 @@ import com.steve.nukkit.AfterLife.events.CustomEvent;
 import com.steve.nukkit.AfterLife.events.FormResponseEvent;
 import com.steve.nukkit.AfterLife.events.JoinEvent;
 import com.steve.nukkit.AfterLife.handler.Mongodb;
-import org.bson.Document;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,27 +82,27 @@ public class Main extends PluginBase {
 
     public void sendProfile(Player sender, String player) {
 
-        Document query = Mongodb.query(player, "name");
+        Map<String, Object> query = Mongodb.query(player, "name");
 
         try {
             switch (getPlugin().getConfig().getString("view-stats")) {
                 case "standard":
-                    sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+query.getString("name")+"'s leaderboard!"+TextFormat.GREEN+" =");
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Levels: "+TextFormat.WHITE+Api().GetLevels(query.getString("uuid")));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Experience: "+TextFormat.WHITE+Api().GetExperience(query.getString("uuid")));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Kills: "+TextFormat.WHITE+Api().GetKills(query.getString("uuid")));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Highest Kill-streak: "+TextFormat.WHITE+Api().GetStreaks(query.getString("uuid")));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Deaths: "+TextFormat.WHITE+Api().GetDeaths(query.getString("uuid")));
+                    sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+query.get("name").toString()+"'s leaderboard!"+TextFormat.GREEN+" =");
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Levels: "+TextFormat.WHITE+Api().GetLevels(query.get("uuid").toString()));
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Experience: "+TextFormat.WHITE+Api().GetExperience(query.get("uuid").toString()));
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Kills: "+TextFormat.WHITE+Api().GetKills(query.get("uuid").toString()));
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Highest Kill-streak: "+TextFormat.WHITE+Api().GetStreaks(query.get("uuid").toString()));
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Deaths: "+TextFormat.WHITE+Api().GetDeaths(query.get("uuid").toString()));
                     sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+"Usage: /stats <name>"+TextFormat.GREEN+" =");
                     break;
                 case "form":
-                    String title = query.getString("name")+"'s Leaderboard";
+                    String title = query.get("name").toString()+"'s Leaderboard";
                     String content =
-                            "Levels: "+Api().GetLevels(query.getString("uuid"))+"\n"+
-                            "Experience: "+Api().GetExperience(query.getString("uuid"))+"\n"+
-                            "Most Kills: "+Api().GetKills(query.getString("uuid"))+"\n"+
-                            "Highest Kill-streak: "+Api().GetStreaks(query.getString("uuid"))+"\n"+
-                            "Most Deaths: "+Api().GetDeaths(query.getString("uuid"))+"\n";
+                            "Levels: "+Api().GetLevels(query.get("uuid").toString())+"\n"+
+                            "Experience: "+Api().GetExperience(query.get("uuid").toString())+"\n"+
+                            "Most Kills: "+Api().GetKills(query.get("uuid").toString())+"\n"+
+                            "Highest Kill-streak: "+Api().GetStreaks(query.get("uuid").toString())+"\n"+
+                            "Most Deaths: "+Api().GetDeaths(query.get("uuid").toString())+"\n";
 
                     FormWindowModal form = new FormWindowModal(title, content, "search", "close");
                     sender.showFormWindow(form, 0);

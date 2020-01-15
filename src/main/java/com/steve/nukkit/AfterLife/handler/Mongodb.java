@@ -1,10 +1,8 @@
 package com.steve.nukkit.AfterLife.handler;
 
-import NukkitDB.NukkitDB;
 import com.steve.nukkit.AfterLife.Main;
-import org.bson.Document;
+import NukkitDB.NukkitDB;
 
-import java.util.List;
 import java.util.Map;
 
 public class Mongodb {
@@ -15,14 +13,10 @@ public class Mongodb {
         Mongodb.plugin = plugin;
     }
 
-    public static Document query(String key, String fieldName) {
+    public static Map<String, Object> query(String key, String fieldName) {
         String database = plugin.getConfig().getString("database");
         String collection = plugin.getConfig().getString("collection");
         return NukkitDB.query(key.toLowerCase(), fieldName, database, collection);
-    }
-
-    public static List<Document> getAll() {
-        return null;
     }
 
     public static void createNew(Map<String, Object> objectMap) {

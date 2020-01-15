@@ -33,7 +33,7 @@ public class AfterLife {
     }
 
     Integer GetStreaks(String uuid) {
-        return Mongodb.query(uuid, "uuid").getInteger("kill-streak");
+        return Integer.parseInt(Mongodb.query(uuid, "uuid").get("kill-streak").toString());
     }
 
     Integer GetDeaths(String uuid) {

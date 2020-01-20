@@ -106,4 +106,4 @@ version: 2
 #-----------------------------------------------------------------------------------------------------------------------
 ```
 # 💰 Credits
-Icon made by Freepik from www.flaticon.com is licensed by CC 3.0 BY
+Icons made by <a href="https://www.flaticon.com/authors/roundicons" title="Roundicons">Roundicons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>

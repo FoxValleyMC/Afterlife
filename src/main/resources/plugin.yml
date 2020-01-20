@@ -7,3 +7,8 @@ softdepend:
   - AliasPro
 depend:
   - NukkitDB
+
+permissions:
+  leaderboard.create:
+    default: op
+    description: allows user to create and set leaderboards

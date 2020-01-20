@@ -9,6 +9,7 @@ import cn.nukkit.form.window.FormWindowModal;
 import cn.nukkit.level.particle.FloatingTextParticle;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.TextFormat;
+import com.steve.nukkit.AfterLife.commands.FloatingTextCommand;
 import com.steve.nukkit.AfterLife.commands.StatsCommand;
 import com.steve.nukkit.AfterLife.commands.testCommand;
 import com.steve.nukkit.AfterLife.events.CustomEvent;
@@ -34,6 +35,7 @@ public class Main extends PluginBase {
         CommandMap commandMap = this.getServer().getCommandMap();
         commandMap.register("Afterlife", new testCommand("afterlife", this));
         commandMap.register("Afterlife", new StatsCommand("stats", this));
+        commandMap.register("Afterlife", new FloatingTextCommand("setleaderboard", this));
     }
 
     @Override

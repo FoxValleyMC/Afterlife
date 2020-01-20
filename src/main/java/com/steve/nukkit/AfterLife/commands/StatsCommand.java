@@ -4,6 +4,9 @@ import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginCommand;
 import com.steve.nukkit.AfterLife.Main;
+import com.steve.nukkit.AfterLife.handler.Mongodb;
+
+import java.util.Map;
 
 public class StatsCommand extends PluginCommand {
 
@@ -27,7 +30,22 @@ public class StatsCommand extends PluginCommand {
                     if (player != null) {
                         plugin.sendProfile((Player) sender, player.getName());
                     } else {
-                        plugin.sendProfile((Player) sender, args[0]);
+                        try {
+                            Map<String, Object> aliasDataMap = AliasPro.AliasPro.getPlayer(args[0]);
+                            if (aliasDataMap == null) {
+                                plugin.sendProfile((Player) sender, args[0]);
+                            } else {
+                                String uuid = aliasDataMap.get("uuid").toString();
+                                Map<String, Object> objectMap = Mongodb.query(uuid, "uuid");
+                                if (objectMap == null) {
+                                    plugin.sendProfile((Player) sender, args[0]);
+                                } else {
+                                    plugin.sendProfile((Player) sender, objectMap.get("name").toString());
+                                }
+                            }
+                        } catch (NoClassDefFoundError error) {
+                            plugin.sendProfile((Player) sender, args[0]);
+                        }
                     }
                     break;
             }

@@ -6,6 +6,7 @@ import cn.nukkit.form.element.ElementInput;
 import cn.nukkit.form.window.FormWindow;
 import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.form.window.FormWindowModal;
+import cn.nukkit.level.particle.FloatingTextParticle;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.TextFormat;
 import com.steve.nukkit.AfterLife.commands.StatsCommand;
@@ -13,6 +14,7 @@ import com.steve.nukkit.AfterLife.commands.testCommand;
 import com.steve.nukkit.AfterLife.events.CustomEvent;
 import com.steve.nukkit.AfterLife.events.FormResponseEvent;
 import com.steve.nukkit.AfterLife.events.JoinEvent;
+import com.steve.nukkit.AfterLife.handler.FloatingTextHandler;
 import com.steve.nukkit.AfterLife.handler.Mongodb;
 
 import java.util.HashMap;
@@ -22,6 +24,8 @@ public class Main extends PluginBase {
 
     private static Main plugin;
     private static AfterLife api;
+
+    public Map<String, FloatingTextParticle> ftps;
 
     public Map<String, FormWindow> forms = new HashMap<>();
 

@@ -7,10 +7,10 @@ texts-top: 5
 
 # setts the title for each leaderboard
 texts-title:
-  - levels: "&b< PvP Levels Leaderboard >"
-  - kills: "&b< Kills Leaderboard >"
-  - kdr: "&b< K/D Ratio Leaderboard >"
-  - streaks: "&b< Top Killstreaks >"
+  levels: "&b< PvP Levels Leaderboard >"
+  kills: "&b< Kills Leaderboard >"
+  kdr: "&b< K/D Ratio Leaderboard >"
+  streaks: "&b< Top Killstreaks >"
 
 
 # choose to use "form" or "standard" message to display stats

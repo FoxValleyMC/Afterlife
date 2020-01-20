@@ -105,7 +105,7 @@ public class Main extends PluginBase {
                             "Most Deaths: "+Api().GetDeaths(query.get("uuid").toString())+"\n";
 
                     FormWindowModal form = new FormWindowModal(title, content, "search", "close");
-                    sender.showFormWindow(form, 0);
+                    sender.showFormWindow(form, 6);
                     break;
                 default:
                     sender.sendMessage(TextFormat.RED+"An error occurred and could not display your game statistics!");

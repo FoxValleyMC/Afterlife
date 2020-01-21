@@ -1,5 +1,5 @@
 # Important!
-This plugin requires <a href="https://github.com/TimelessMC/NukkitDB">NukkitDB</a> plugin to work!
+This plugin requires <a href="https://github.com/TimelessMC/NukkitDB">NukkitDB-1.1.1</a> plugin to work!
 
 # AfterLife Features [![HitCount](http://hits.dwyl.io/TimelessMC/Afterlife.svg)](http://hits.dwyl.io/TimelessMC/Afterlife)
 Fully featured kill/death scoring plugin with custom death event!

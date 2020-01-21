@@ -3,6 +3,7 @@ package com.steve.nukkit.AfterLife.handler;
 import com.steve.nukkit.AfterLife.Main;
 import NukkitDB.NukkitDB;
 
+import java.util.List;
 import java.util.Map;
 
 public class Mongodb {
@@ -17,6 +18,12 @@ public class Mongodb {
         String database = plugin.getConfig().getString("database");
         String collection = plugin.getConfig().getString("collection");
         return NukkitDB.query(key.toLowerCase(), fieldName, database, collection);
+    }
+
+    public static List<Map<String, Object>> GetAll() {
+        String database = plugin.getConfig().getString("database");
+        String collection = plugin.getConfig().getString("collection");
+        return NukkitDB.GetAll(database, collection);
     }
 
     public static void createNew(Map<String, Object> objectMap) {

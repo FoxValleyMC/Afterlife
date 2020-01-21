@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
-    implementation "com.github.TimelessMC:NukkitDB:2f1a19fd8183c4f59f9295a6af111f168c047e3b"
+    implementation "com.github.TimelessMC:NukkitDB:master-SNAPSHOT"
     implementation "com.github.TimelessMC:AliasPro:master-SNAPSHOT"
 }
 

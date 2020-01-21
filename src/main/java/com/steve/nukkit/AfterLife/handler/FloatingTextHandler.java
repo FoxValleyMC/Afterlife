@@ -15,7 +15,7 @@ public class FloatingTextHandler {
         String title = objectMap.get(type).toString();
         FloatingTextParticle particle = new FloatingTextParticle(location, Colorize.Register(title));
         player.getLevel().addParticle(particle);
-        Main.getPlugin().ftps.put(title, particle);
+        Main.getPlugin().ftps.put(type, particle);
     }
 
 }

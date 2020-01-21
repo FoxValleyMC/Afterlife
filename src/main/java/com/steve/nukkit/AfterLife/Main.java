@@ -49,7 +49,7 @@ public class Main extends PluginBase {
         this.saveDefaultConfig();
 
         // registers plugin event listeners
-        this.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new CustomEvent(this), this);
         this.getServer().getPluginManager().registerEvents(new FormResponseEvent(this), this);
 

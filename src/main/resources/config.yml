@@ -8,7 +8,8 @@ texts-top: 5
 # setts the title for each leaderboard
 texts-title:
   levels: "&b< PvP Levels Leaderboard >"
-  kills: "&b< Kills Leaderboard >"
+  kills: "&b< Most kills >"
+  xp: "&b< Most experience >"
   kdr: "&b< K/D Ratio Leaderboard >"
   streaks: "&b< Top Killstreaks >"
 

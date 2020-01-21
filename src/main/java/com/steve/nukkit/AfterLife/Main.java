@@ -8,6 +8,7 @@ import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.form.window.FormWindowModal;
 import cn.nukkit.level.particle.FloatingTextParticle;
 import cn.nukkit.plugin.PluginBase;
+import cn.nukkit.utils.Config;
 import cn.nukkit.utils.TextFormat;
 import com.steve.nukkit.AfterLife.commands.FloatingTextCommand;
 import com.steve.nukkit.AfterLife.commands.StatsCommand;
@@ -26,9 +27,10 @@ public class Main extends PluginBase {
     private static Main plugin;
     private static AfterLife api;
 
-    public Map<String, FloatingTextParticle> ftps;
-
+    public Map<String, FloatingTextParticle> ftps = new HashMap<>();
     public Map<String, FormWindow> forms = new HashMap<>();
+
+    public Config texts;
 
     @Override
     public void onLoad() {
@@ -68,6 +70,10 @@ public class Main extends PluginBase {
         ElementInput input = new ElementInput("", "enter player's FULL name");
         form.addElement(input);
         forms.put("searchForm", form);
+
+        // registers texts config data file
+        saveResource("texts.yml");
+        texts = new Config(getPlugin().getDataFolder()+"/texts.yml", Config.YAML);
     }
 
     /**

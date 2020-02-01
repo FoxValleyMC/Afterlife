@@ -24,14 +24,14 @@ public class CustomEvent implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onEvent(EntityDamageEvent event) {
 
-        // player who is getting damaged
-        Player victim = (Player) event.getEntity();
-
         // position to teleport to on death
         Position position = plugin.getServer().getDefaultLevel().getSafeSpawn();
 
         // check if victim is a player entity
-        if (victim != null) {
+        if (event.getEntity() instanceof Player) {
+
+            // player who is getting damaged
+            Player victim = (Player) event.getEntity();
 
             // check if victims health becomes lower than 1 minecraft heart value
             if (event.getFinalDamage() >= victim.getHealth()) {
@@ -53,11 +53,11 @@ public class CustomEvent implements Listener {
                 // if player was demonetized by another player
                 if (event instanceof EntityDamageByEntityEvent) {
 
-                    // player who executed the event
-                    Player killer = (Player) ((EntityDamageByEntityEvent) event).getDamager();
-
                     // check if killer is a player entity
-                    if (killer != null) {
+                    if (((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
+
+                        // player who executed the event
+                        Player killer = (Player) ((EntityDamageByEntityEvent) event).getDamager();
 
                         // add kill and xp values to leaderboard score
                         AfterLife.kills.add(killer.getUniqueId().toString());

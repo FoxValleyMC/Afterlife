@@ -1,6 +1,6 @@
 name: AfterLife
 main: com.steve.nukkit.AfterLife.Main
-version: 2.2.2
+version: 2.2.3
 api: [1.0.0]
 author: Atom
 depend:

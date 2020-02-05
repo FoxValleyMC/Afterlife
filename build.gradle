@@ -10,7 +10,7 @@ repositories {
 }
 
 group "Afterlife"
-version "2.2.2"
+version "2.2.3"
 
 dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"

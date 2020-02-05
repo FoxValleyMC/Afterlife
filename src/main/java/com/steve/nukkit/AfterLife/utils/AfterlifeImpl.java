@@ -16,9 +16,9 @@ public interface AfterlifeImpl {
 
     void addDeath();
 
-    void addXp();
+    void addXp(int amount);
 
-    void removeXp();
+    void removeXp(int amount);
 
     void addLevel();
 

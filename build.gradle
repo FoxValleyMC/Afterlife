@@ -16,7 +16,7 @@ dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
     implementation "com.github.TimelessMC:NukkitDB:4939df5"
     implementation "com.github.TimelessMC:AliasPro:master-SNAPSHOT"
-    implementation "com.github.TimelessMC:PlayerAPI:master-SNAPSHOT"
+    implementation "com.github.TimelessMC:PlayerAPI:25469b9"
 }
 
 jar {

@@ -3,10 +3,9 @@ main: com.steve.nukkit.AfterLife.Main
 version: 2.2.2
 api: [1.0.0]
 author: Atom
-softdepend:
-  - AliasPro
 depend:
   - NukkitDB
+  - PlayerAPI
 
 permissions:
   leaderboard.create:

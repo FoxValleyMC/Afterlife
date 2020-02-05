@@ -4,6 +4,8 @@ public interface AfterlifeImpl {
 
     int getKills();
 
+    int getKillStreak();
+
     int getDeaths();
 
     int getLevels();

@@ -8,7 +8,7 @@ public interface AfterlifeImpl {
 
     int getLevels();
 
-    int getExperience();
+    int getXp();
 
     int getNeededXp();
 

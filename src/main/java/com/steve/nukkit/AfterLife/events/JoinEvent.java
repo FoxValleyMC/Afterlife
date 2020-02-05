@@ -1,5 +1,6 @@
 package com.steve.nukkit.AfterLife.events;
 
+import PlayerAPI.Overrides.PlayerAPI;
 import cn.nukkit.Player;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.EventPriority;
@@ -24,7 +25,7 @@ public class JoinEvent implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
+        PlayerAPI player = (PlayerAPI) event.getPlayer();
         String uuid = player.getUniqueId().toString();
 
         if (Mongodb.query(uuid, "uuid") == null) {

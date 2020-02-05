@@ -1,6 +1,6 @@
 package com.steve.nukkit.AfterLife.events;
 
-import cn.nukkit.Player;
+import PlayerAPI.Overrides.PlayerAPI;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.EventPriority;
 import cn.nukkit.event.Listener;
@@ -28,10 +28,10 @@ public class CustomEvent implements Listener {
         Position position = plugin.getServer().getDefaultLevel().getSafeSpawn();
 
         // check if victim is a player entity
-        if (event.getEntity() instanceof Player) {
+        if (event.getEntity() instanceof PlayerAPI) {
 
             // player who is getting damaged
-            Player victim = (Player) event.getEntity();
+            PlayerAPI victim = (PlayerAPI) event.getEntity();
 
             // check if victims health becomes lower than 1 minecraft heart value
             if (event.getFinalDamage() >= victim.getHealth()) {
@@ -42,9 +42,11 @@ public class CustomEvent implements Listener {
                 victim.setHealth(victim.getMaxHealth());
 
                 // add to victims death and xp score
-                AfterLife.deaths.add(victim.getUniqueId().toString());
+                //AfterLife.deaths.add(victim.getUniqueId().toString());
+                victim.addDeath();
                 if (plugin.getConfig().getBoolean("use-levels")) {
-                    AfterLife.experience.remove(victim.getUniqueId().toString(), plugin.getConfig().getInt("loose-xp-amount"));
+                    //AfterLife.experience.remove(victim.getUniqueId().toString(), plugin.getConfig().getInt("loose-xp-amount"));
+                    victim.removeXp(plugin.getConfig().getInt("loose-xp-amount"));
                 }
 
                 // log death message
@@ -54,15 +56,17 @@ public class CustomEvent implements Listener {
                 if (event instanceof EntityDamageByEntityEvent) {
 
                     // check if killer is a player entity
-                    if (((EntityDamageByEntityEvent) event).getDamager() instanceof Player) {
+                    if (((EntityDamageByEntityEvent) event).getDamager() instanceof PlayerAPI) {
 
                         // player who executed the event
-                        Player killer = (Player) ((EntityDamageByEntityEvent) event).getDamager();
+                        PlayerAPI killer = (PlayerAPI) ((EntityDamageByEntityEvent) event).getDamager();
 
                         // add kill and xp values to leaderboard score
-                        AfterLife.kills.add(killer.getUniqueId().toString());
+                        //AfterLife.kills.add(killer.getUniqueId().toString());
+                        killer.addKill();
                         if (plugin.getConfig().getBoolean("use-levels")) {
-                            AfterLife.experience.add(killer.getUniqueId().toString(), plugin.getConfig().getInt("add-xp-amount"));
+                            //AfterLife.experience.add(killer.getUniqueId().toString(), plugin.getConfig().getInt("add-xp-amount"));
+                            killer.addXp(plugin.getConfig().getInt("add-xp-amount"));
                         }
 
                         // log message
@@ -83,7 +87,7 @@ public class CustomEvent implements Listener {
         }
     }
 
-    private void logMessage(EntityDamageEvent.DamageCause damageCause, Player victim) {
+    private void logMessage(EntityDamageEvent.DamageCause damageCause, PlayerAPI victim) {
         switch (damageCause) {
             case CONTACT:
                 plugin.getServer().broadcastMessage(victim.getName()+" Was killed by contact with another block!");

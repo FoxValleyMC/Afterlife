@@ -14,7 +14,7 @@ version "2.2.2"
 
 dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
-    implementation "com.github.TimelessMC:NukkitDB:master-SNAPSHOT"
+    implementation "com.github.TimelessMC:NukkitDB:4939df5"
     implementation "com.github.TimelessMC:AliasPro:master-SNAPSHOT"
 }
 

@@ -20,7 +20,7 @@ public class StatsCommand extends PluginCommand {
         if (sender instanceof PlayerAPI) {
             switch (args.length) {
                 case 0:
-                    plugin.sendProfile((PlayerAPI) sender, sender.getName());
+                    plugin.sendProfile(sender, sender.getName());
                     break;
                 case 1:
                     // TODO - view other players data

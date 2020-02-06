@@ -2,6 +2,7 @@ package Afterlife.commands;
 
 import Afterlife.handler.FloatingTextHandler;
 import PlayerAPI.Overrides.PlayerAPI;
+import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginCommand;
 import Afterlife.Main;
@@ -46,7 +47,7 @@ public class FloatingTextCommand extends PluginCommand {
                                 double y = Math.round(((PlayerAPI) sender).getY());
                                 double z =  Math.round(((PlayerAPI) sender).getZ());
                                 Position position = new Position(x, y+1.7, z, level);
-                                FloatingTextHandler.addParticle(position, args[0], (PlayerAPI) sender);
+                                FloatingTextHandler.addParticle(position, args[0], (Player) sender);
                                 Map<String, Object> textsMap = new HashMap<>();
                                 textsMap.put("level", level.getName());
                                 textsMap.put("type", args[0]);

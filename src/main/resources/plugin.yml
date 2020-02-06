@@ -1,5 +1,5 @@
 name: Afterlife
-main: com.steve.nukkit.AfterLife.Main
+main: Afterlife.Main
 version: 3.0.3
 api: 1.0.9
 author: Atom

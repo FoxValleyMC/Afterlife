@@ -1,6 +1,7 @@
 package com.steve.nukkit.AfterLife;
 
 import PlayerAPI.Overrides.PlayerAPI;
+import cn.nukkit.Player;
 import cn.nukkit.command.CommandMap;
 import cn.nukkit.form.element.ElementInput;
 import cn.nukkit.form.window.FormWindow;
@@ -91,9 +92,8 @@ public class Main extends PluginBase {
         return api;
     }
 
-    public void sendProfile(PlayerAPI sender, String query) {
+    public void sendProfile(Player sender, String query) {
 
-        //Map<String, Object> query = Mongodb.query(player.getName(), "name");
         PlayerAPI player = (PlayerAPI) getServer().getPlayer(query);
 
         try {

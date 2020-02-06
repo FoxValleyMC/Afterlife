@@ -1,5 +1,6 @@
 package com.steve.nukkit.AfterLife.commands;
 
+import PlayerAPI.Overrides.PlayerAPI;
 import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginCommand;
@@ -19,11 +20,11 @@ public class StatsCommand extends PluginCommand {
 
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        if (sender instanceof Player) {
+        if (sender instanceof PlayerAPI) {
 
             switch (args.length) {
                 case 0:
-                    plugin.sendProfile((Player) sender, sender.getName());
+                    plugin.sendProfile((PlayerAPI) sender, sender.getName());
                     break;
                 case 1:
                     Player player = this.getPlugin().getServer().getPlayer(args[0]);

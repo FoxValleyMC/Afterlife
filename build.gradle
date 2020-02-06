@@ -10,11 +10,12 @@ repositories {
 }
 
 group "Afterlife"
-version "2.2.3"
+version "3.0.3"
 
 dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
     implementation "com.github.FoxValley:PlayerAPI:master-SNAPSHOT"
+    implementation "com.github.FoxValley:NukkitDB:master-SNAPSHOT"
 }
 
 jar {

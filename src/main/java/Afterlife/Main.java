@@ -63,7 +63,7 @@ public class Main extends PluginBase {
         return instance;
     }
 
-    public void sendProfile(CommandSender sender, String query) {
+    public void sendProfile(PlayerAPI sender, String query) {
 
         PlayerAPI player = (PlayerAPI) getServer().getPlayer(query);
 
@@ -90,7 +90,7 @@ public class Main extends PluginBase {
                     window.setContent(content);
                     window.setButton1("search");
                     window.setButton2("close");
-                    ((PlayerAPI) sender).showFormWindow(window);
+                    sender.showFormWindow(window);
                     break;
             }
         } catch (NullPointerException e) {

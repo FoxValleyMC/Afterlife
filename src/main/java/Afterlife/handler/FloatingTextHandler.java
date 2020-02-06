@@ -12,8 +12,7 @@ import java.util.Map;
 
 public class FloatingTextHandler {
 
-    public static void addParticle(Vector3 location, String type, Player sender) {
-        PlayerAPI player = (PlayerAPI) sender;
+    public static void addParticle(Vector3 location, String type, PlayerAPI player) {
         Map<String, Object> objectMap = (Map<String, Object>) Main.getInstance().getConfig().get("texts-title");
         String title = objectMap.get(type).toString();
         FloatingTextParticle particle = new FloatingTextParticle(location, Colorize.Register(title)+"\n"+ GetData.GetLeaderboard(type));

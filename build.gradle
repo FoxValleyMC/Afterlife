@@ -14,9 +14,9 @@ version "2.2.3"
 
 dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
-    implementation "com.github.TimelessMC:NukkitDB:4939df5"
-    implementation "com.github.TimelessMC:AliasPro:master-SNAPSHOT"
-    implementation 'com.github.TimelessMC:PlayerAPI:-SNAPSHOT'
+    implementation "com.github.FoxValleyMC:NukkitDB:master-SNAPSHOT"
+    implementation "com.github.FoxValleyMC:AliasPro:master-SNAPSHOT"
+    implementation 'com.github.FoxValleyMC:PlayerAPI:master-SNAPSHOT'
 }
 
 jar {

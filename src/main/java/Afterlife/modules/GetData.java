@@ -1,4 +1,4 @@
-package com.steve.nukkit.AfterLife.modules;
+package Afterlife.modules;
 
 
 public class GetData {

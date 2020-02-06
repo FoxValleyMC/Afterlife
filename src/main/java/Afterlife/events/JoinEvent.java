@@ -1,4 +1,4 @@
-package com.steve.nukkit.AfterLife.events;
+package Afterlife.events;
 
 import cn.nukkit.event.Listener;
 

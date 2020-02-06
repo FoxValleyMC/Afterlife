@@ -1,13 +1,4 @@
-package com.steve.nukkit.AfterLife.handler;
-
-import cn.nukkit.Player;
-import cn.nukkit.level.particle.FloatingTextParticle;
-import cn.nukkit.math.Vector3;
-import com.steve.nukkit.AfterLife.Main;
-import com.steve.nukkit.AfterLife.modules.GetData;
-import com.steve.nukkit.AfterLife.utils.Colorize;
-
-import java.util.Map;
+package Afterlife.handler;
 
 public class FloatingTextHandler {
 

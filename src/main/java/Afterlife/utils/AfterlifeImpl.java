@@ -1,4 +1,4 @@
-package com.steve.nukkit.AfterLife.utils;
+package Afterlife.utils;
 
 public interface AfterlifeImpl {
 

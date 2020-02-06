@@ -1,7 +1,7 @@
-package com.steve.nukkit.AfterLife.commands;
+package Afterlife.commands;
 
 import cn.nukkit.command.PluginCommand;
-import com.steve.nukkit.AfterLife.Main;
+import Afterlife.Main;
 
 public class FloatingTextCommand extends PluginCommand {
 

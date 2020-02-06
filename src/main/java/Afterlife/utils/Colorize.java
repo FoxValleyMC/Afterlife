@@ -1,4 +1,4 @@
-package com.steve.nukkit.AfterLife.utils;
+package Afterlife.utils;
 
 import cn.nukkit.utils.TextFormat;
 

@@ -1,11 +1,10 @@
-package com.steve.nukkit.AfterLife.events;
+package Afterlife.events;
 
 import cn.nukkit.event.Listener;
-import com.steve.nukkit.AfterLife.Main;
 
 public class CustomEvent implements Listener {
 
-    private Main plugin;
+//    private Main plugin;
 
 //    public CustomEvent(Main plugin) {
 //        this.plugin = plugin;

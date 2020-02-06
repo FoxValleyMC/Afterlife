@@ -87,7 +87,7 @@ public class Main extends PluginBase {
                 case "form":
                     String title = player.getName()+"'s Leaderboard";
                     String content = "Levels: "+player.getLevels()+"\n"+
-                                    "Experience: "+player.getX()+"\n"+
+                                    "Experience: "+player.getXp()+"\n"+
                                     "Most Kills: "+player.getKills()+"\n"+
                                     "Highest Kill-streak: "+player.getKillStreak()+"\n"+
                                     "Most Deaths: "+player.getDeaths()+"\n";

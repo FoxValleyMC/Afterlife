@@ -52,11 +52,17 @@ public class ProfileWindow extends FormWindow {
 
     @Override
     public void setResponse(String data) {
-        System.out.println(data);
         if (data.equals("null")) {
             this.closed = true;
             return;
         }
+
+        if ("true".equals(data)) {
+
+        } else {
+            this.closed = true;
+        }
+
     }
 
     @Override

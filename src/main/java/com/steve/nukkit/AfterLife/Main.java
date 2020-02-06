@@ -1,6 +1,6 @@
 package com.steve.nukkit.AfterLife;
 
-import cn.nukkit.Player;
+import PlayerAPI.Overrides.PlayerAPI;
 import cn.nukkit.command.CommandMap;
 import cn.nukkit.form.element.ElementInput;
 import cn.nukkit.form.window.FormWindow;
@@ -16,7 +16,6 @@ import com.steve.nukkit.AfterLife.commands.testCommand;
 import com.steve.nukkit.AfterLife.events.CustomEvent;
 import com.steve.nukkit.AfterLife.events.FormResponseEvent;
 import com.steve.nukkit.AfterLife.events.JoinEvent;
-import com.steve.nukkit.AfterLife.handler.FloatingTextHandler;
 import com.steve.nukkit.AfterLife.handler.Mongodb;
 
 import java.util.HashMap;
@@ -92,29 +91,30 @@ public class Main extends PluginBase {
         return api;
     }
 
-    public void sendProfile(Player sender, String player) {
+    public void sendProfile(PlayerAPI sender, String query) {
 
-        Map<String, Object> query = Mongodb.query(player, "name");
+        //Map<String, Object> query = Mongodb.query(player.getName(), "name");
+        PlayerAPI player = (PlayerAPI) getServer().getPlayer(query);
 
         try {
             switch (getPlugin().getConfig().getString("view-stats")) {
                 case "standard":
-                    sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+query.get("name").toString()+"'s leaderboard!"+TextFormat.GREEN+" =");
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Levels: "+TextFormat.WHITE+Api().GetLevels(query.get("uuid").toString()));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Experience: "+TextFormat.WHITE+Api().GetExperience(query.get("uuid").toString()));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Kills: "+TextFormat.WHITE+Api().GetKills(query.get("uuid").toString()));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Highest Kill-streak: "+TextFormat.WHITE+Api().GetStreaks(query.get("uuid").toString()));
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Deaths: "+TextFormat.WHITE+Api().GetDeaths(query.get("uuid").toString()));
+                    sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+player.getName()+"'s leaderboard!"+TextFormat.GREEN+" =");
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Levels: "+TextFormat.WHITE+player.getLevels());
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Experience: "+TextFormat.WHITE+player.getXp());
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Kills: "+TextFormat.WHITE+player.getKills());
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Highest Kill-streak: "+TextFormat.WHITE+player.getKillStreak());
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Deaths: "+TextFormat.WHITE+player.getDeaths());
                     sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+"Usage: /stats <name>"+TextFormat.GREEN+" =");
                     break;
                 case "form":
-                    String title = query.get("name").toString()+"'s Leaderboard";
+                    String title = player.getName()+"'s Leaderboard";
                     String content =
-                            "Levels: "+Api().GetLevels(query.get("uuid").toString())+"\n"+
-                            "Experience: "+Api().GetExperience(query.get("uuid").toString())+"\n"+
-                            "Most Kills: "+Api().GetKills(query.get("uuid").toString())+"\n"+
-                            "Highest Kill-streak: "+Api().GetStreaks(query.get("uuid").toString())+"\n"+
-                            "Most Deaths: "+Api().GetDeaths(query.get("uuid").toString())+"\n";
+                            "Levels: "+player.getLevels()+"\n"+
+                            "Experience: "+player.getX()+"\n"+
+                            "Most Kills: "+player.getKills()+"\n"+
+                            "Highest Kill-streak: "+player.getKillStreak()+"\n"+
+                            "Most Deaths: "+player.getDeaths()+"\n";
 
                     FormWindowModal form = new FormWindowModal(title, content, "search", "close");
                     sender.showFormWindow(form, 6);
@@ -126,5 +126,4 @@ public class Main extends PluginBase {
             sender.sendMessage(TextFormat.RED+"Player does not exist in our database! "+TextFormat.WHITE+"(maybe name is incorrectly spelled?)");
         }
     }
-
 }

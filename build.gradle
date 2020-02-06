@@ -1,29 +1,25 @@
-apply plugin: "java"
-
-repositories {
-    maven {
-        url "http://repo.nukkitx.com/main/"
-    }
-    maven {
-        url "https://jitpack.io"
-    }
+plugins {
+    id 'java'
 }
 
-group "Afterlife"
-version "3.0.3"
+group 'Afterlife'
+version '3.0.3'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url "https://jitpack.io" }
+    maven { url "http://repo.nukkitx.com/main/" }
+}
 
 dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
-    implementation "com.github.FoxValley:PlayerAPI:master-SNAPSHOT"
-    implementation "com.github.FoxValley:NukkitDB:master-SNAPSHOT"
+    implementation "com.github.FoxValleyMC:PlayerAPI:master-SNAPSHOT"
+    implementation "com.github.FoxValleyMC:NukkitDB:master-SNAPSHOT"
 }
 
 jar {
     manifest {
         attributes "Main-Class": "Afterlife.Main"
     }
-}
-
-sourceSets {
-    main.java.srcDir "src/main"
 }

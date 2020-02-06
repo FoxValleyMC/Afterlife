@@ -4,13 +4,12 @@ import Afterlife.commands.FloatingTextCommand;
 import Afterlife.commands.StatsCommand;
 import Afterlife.events.DamageEvent;
 import Afterlife.events.JoinEvent;
+import Afterlife.window.ProfileSearchWindow;
 import Afterlife.window.ProfileWindow;
 import PlayerAPI.Overrides.PlayerAPI;
 import cn.nukkit.command.CommandMap;
-import cn.nukkit.command.CommandSender;
 import cn.nukkit.form.element.ElementInput;
 import cn.nukkit.form.window.FormWindow;
-import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.level.particle.FloatingTextParticle;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
@@ -48,10 +47,11 @@ public class Main extends PluginBase {
         getServer().getPluginManager().registerEvents(new DamageEvent(this), this);
 
         // registers search form
-        FormWindowCustom form = new FormWindowCustom("Search player profile");
+        ProfileSearchWindow form = new ProfileSearchWindow();
+        form.setTitle("Search player profile");
         ElementInput input = new ElementInput("", "enter player's FULL name");
         form.addElement(input);
-        forms.put("searchForm", form);
+        forms.put("profile-search", form);
 
         // registers texts config data file
         saveResource("texts.yml");

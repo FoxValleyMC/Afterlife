@@ -4,11 +4,9 @@ import Afterlife.commands.FloatingTextCommand;
 import Afterlife.commands.StatsCommand;
 import Afterlife.events.DamageEvent;
 import Afterlife.events.JoinEvent;
-import Afterlife.window.ProfileSearchWindow;
 import Afterlife.window.ProfileWindow;
 import PlayerAPI.Overrides.PlayerAPI;
 import cn.nukkit.command.CommandMap;
-import cn.nukkit.form.element.ElementInput;
 import cn.nukkit.form.window.FormWindow;
 import cn.nukkit.level.particle.FloatingTextParticle;
 import cn.nukkit.plugin.PluginBase;
@@ -47,11 +45,7 @@ public class Main extends PluginBase {
         getServer().getPluginManager().registerEvents(new DamageEvent(this), this);
 
         // registers search form
-        ProfileSearchWindow form = new ProfileSearchWindow();
-        form.setTitle("Search player profile");
-        ElementInput input = new ElementInput("", "enter player's FULL name");
-        form.addElement(input);
-        forms.put("profile-search", form);
+
 
         // registers texts config data file
         saveResource("texts.yml");
@@ -91,12 +85,7 @@ public class Main extends PluginBase {
                                     "Most Kills: "+player.getKills()+"\n"+
                                     "Highest Kill-streak: "+player.getKillStreak()+"\n"+
                                     "Most Deaths: "+player.getDeaths()+"\n";
-                    ProfileWindow window = new ProfileWindow();
-                    window.setTitle(title);
-                    window.setContent(content);
-                    window.setButton1("search");
-                    window.setButton2("close");
-                    sender.showFormWindow(window);
+
                     break;
             }
         } catch (NullPointerException e) {

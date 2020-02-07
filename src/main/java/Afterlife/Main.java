@@ -80,12 +80,14 @@ public class Main extends PluginBase {
                     break;
                 case "form":
                     String title = player.getName()+"'s Leaderboard";
-                    String content = "Levels: "+player.getLevels()+"\n"+
-                                    "Experience: "+player.getXp()+"\n"+
-                                    "Most Kills: "+player.getKills()+"\n"+
-                                    "Highest Kill-streak: "+player.getKillStreak()+"\n"+
-                                    "Most Deaths: "+player.getDeaths()+"\n";
-
+                    String content =
+                            "Levels: "+player.getLevels()+"\n"+
+                            "Experience: "+player.getXp()+"\n"+
+                            "Most Kills: "+player.getKills()+"\n"+
+                            "Highest Kill-streak: "+player.getKillStreak()+"\n"+
+                            "Most Deaths: "+player.getDeaths()+"\n";
+                    FormWindow window = new ProfileWindow(title, content, "search", "close");
+                    player.showFormWindow(window);
                     break;
             }
         } catch (NullPointerException e) {

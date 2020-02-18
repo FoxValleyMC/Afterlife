@@ -15,6 +15,7 @@ repositories {
 dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
     implementation "com.github.FoxValleyMC:PlayerAPI:03832a6455"
+    implementation "com.github.FoxValleyMc:FormAPI:master-SNAPSHOT"
     implementation "com.github.FoxValleyMC:NukkitDB:master-SNAPSHOT"
 }
 

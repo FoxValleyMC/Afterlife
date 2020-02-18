@@ -6,6 +6,7 @@ author: Atom
 depend:
   - NukkitDB
   - PlayerAPI
+  - FormAPI
 
 permissions:
   leaderboard.create:

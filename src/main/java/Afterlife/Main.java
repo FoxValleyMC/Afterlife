@@ -3,6 +3,7 @@ package Afterlife;
 import Afterlife.commands.FloatingTextCommand;
 import Afterlife.commands.StatsCommand;
 import Afterlife.events.DamageEvent;
+import Afterlife.events.FormResponseEvent;
 import Afterlife.events.JoinEvent;
 import FormAPI.api.FormAPI;
 import PlayerAPI.Overrides.PlayerAPI;
@@ -46,6 +47,7 @@ public class Main extends PluginBase {
         // registers plugin event listeners
         getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
         getServer().getPluginManager().registerEvents(new DamageEvent(this), this);
+        getServer().getPluginManager().registerEvents(new FormResponseEvent(this), this);
 
         // registers search form
         FormWindowCustom windowCustom = new FormWindowCustom("Search player profile");

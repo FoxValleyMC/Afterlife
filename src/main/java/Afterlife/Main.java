@@ -74,6 +74,10 @@ public class Main extends PluginBase {
     public void sendProfile(PlayerAPI sender, String query) {
 
         PlayerAPI player = PlayerAPI.get(query);
+        if (player == null) {
+            sender.sendMessage(TextFormat.RED + query + " " + "could not be found online!");
+            return;
+        }
 
         try {
             switch (getConfig().getString("view-stats")) {

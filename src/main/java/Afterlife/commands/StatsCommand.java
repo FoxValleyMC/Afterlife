@@ -23,7 +23,7 @@ public class StatsCommand extends PluginCommand {
                     plugin.sendProfile((PlayerAPI) sender, sender.getName());
                     break;
                 case 1:
-                    // TODO - view other players data
+                    plugin.sendProfile((PlayerAPI) sender, args[0]);
                     break;
             }
         } else {

@@ -4,10 +4,13 @@ import Afterlife.commands.FloatingTextCommand;
 import Afterlife.commands.StatsCommand;
 import Afterlife.events.DamageEvent;
 import Afterlife.events.JoinEvent;
-import Afterlife.window.ProfileWindow;
+import FormAPI.api.FormAPI;
 import PlayerAPI.Overrides.PlayerAPI;
 import cn.nukkit.command.CommandMap;
+import cn.nukkit.form.element.ElementInput;
 import cn.nukkit.form.window.FormWindow;
+import cn.nukkit.form.window.FormWindowCustom;
+import cn.nukkit.form.window.FormWindowModal;
 import cn.nukkit.level.particle.FloatingTextParticle;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
@@ -21,9 +24,9 @@ public class Main extends PluginBase {
     private static Main instance;
 
     public Config texts;
+    public FormAPI formAPI = new FormAPI();
 
     public Map<String, FloatingTextParticle> ftps = new HashMap<>();
-    public Map<String, FormWindow> forms = new HashMap<>();
 
     @Override
     public void onLoad() {
@@ -45,7 +48,10 @@ public class Main extends PluginBase {
         getServer().getPluginManager().registerEvents(new DamageEvent(this), this);
 
         // registers search form
-
+        FormWindowCustom windowCustom = new FormWindowCustom("Search player profile");
+        ElementInput input = new ElementInput("Enter online player name", "xBox username or server alias");
+        windowCustom.addElement(input);
+        formAPI.add("searchWindow", windowCustom);
 
         // registers texts config data file
         saveResource("texts.yml");
@@ -65,12 +71,12 @@ public class Main extends PluginBase {
 
     public void sendProfile(PlayerAPI sender, String query) {
 
-        PlayerAPI player = (PlayerAPI) getServer().getPlayer(query);
+        PlayerAPI player = PlayerAPI.get(query);
 
         try {
             switch (getConfig().getString("view-stats")) {
                 case "standard":
-                    sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+player.getName()+"'s leaderboard!"+TextFormat.GREEN+" =");
+                    sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+player.getAlias()+"'s leaderboard!"+TextFormat.GREEN+" =");
                     sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Levels: "+TextFormat.WHITE+player.getLevels());
                     sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Experience: "+TextFormat.WHITE+player.getXp());
                     sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Kills: "+TextFormat.WHITE+player.getKills());
@@ -79,15 +85,16 @@ public class Main extends PluginBase {
                     sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+"Usage: /stats <name>"+TextFormat.GREEN+" =");
                     break;
                 case "form":
-                    String title = player.getName()+"'s Leaderboard";
+                    String title = player.getAlias()+"'s Leaderboard";
                     String content =
                             "Levels: "+player.getLevels()+"\n"+
                             "Experience: "+player.getXp()+"\n"+
                             "Most Kills: "+player.getKills()+"\n"+
                             "Highest Kill-streak: "+player.getKillStreak()+"\n"+
                             "Most Deaths: "+player.getDeaths()+"\n";
-                    FormWindow window = new ProfileWindow(title, content, "search", "close");
-                    player.showFormWindow(window);
+                    FormWindow window = new FormWindowModal(title, content, "search", "close");
+                    formAPI.add("profile", window);
+                    player.showFormWindow(formAPI.get("profile"), formAPI.getId("profile"));
                     break;
             }
         } catch (NullPointerException e) {

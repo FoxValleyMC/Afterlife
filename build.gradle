@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'Afterlife'
-version '3.0.3'
+version '3.0.4'
 
 sourceCompatibility = 1.8
 

@@ -1,5 +1,6 @@
 package Afterlife.events;
 
+import Afterlife.API.AfterlifeAPI;
 import Afterlife.Main;
 import PlayerAPI.Overrides.PlayerAPI;
 import cn.nukkit.event.EventHandler;
@@ -38,11 +39,12 @@ public class DamageEvent implements Listener {
                 event.setCancelled(true);
                 victim.teleport(position);
                 victim.setHealth(victim.getMaxHealth());
+                victim.getFoodData().setLevel(victim.getFoodData().getMaxLevel());
 
                 // add to victims death and xp score
-                victim.addDeath();
+                AfterlifeAPI.addDeath(victim);
                 if (plugin.getConfig().getBoolean("use-levels")) {
-                    victim.removeXp(plugin.getConfig().getInt("loose-xp-amount"));
+                    AfterlifeAPI.removeXp(victim, plugin.getConfig().getInt("loose-xp-amount"));
                 }
 
                 // log death message
@@ -58,9 +60,9 @@ public class DamageEvent implements Listener {
                         PlayerAPI killer = (PlayerAPI) ((EntityDamageByEntityEvent) event).getDamager();
 
                         // add kill and xp values to leaderboard score
-                        killer.addKill();
+                        AfterlifeAPI.addKill(killer);
                         if (plugin.getConfig().getBoolean("use-levels")) {
-                            killer.addXp(plugin.getConfig().getInt("add-xp-amount"));
+                            AfterlifeAPI.addXp(killer, plugin.getConfig().getInt("add-xp-amount"));
                         }
 
                         // log message

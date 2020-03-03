@@ -1,5 +1,6 @@
 package Afterlife;
 
+import Afterlife.API.AfterlifeAPI;
 import Afterlife.commands.FloatingTextCommand;
 import Afterlife.commands.StatsCommand;
 import Afterlife.events.DamageEvent;
@@ -80,24 +81,29 @@ public class Main extends PluginBase {
         }
 
         try {
+            int kills = AfterlifeAPI.getKills(player);
+            int streaks = AfterlifeAPI.getKillStreak(player);
+            int experience = AfterlifeAPI.getXp(player);
+            int levels = AfterlifeAPI.getLevels(player);
+            int deaths = AfterlifeAPI.getDeaths(player);
             switch (getConfig().getString("view-stats")) {
                 case "standard":
                     sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+player.getAlias()+"'s leaderboard!"+TextFormat.GREEN+" =");
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Levels: "+TextFormat.WHITE+player.getLevels());
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Experience: "+TextFormat.WHITE+player.getXp());
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Kills: "+TextFormat.WHITE+player.getKills());
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Highest Kill-streak: "+TextFormat.WHITE+player.getKillStreak());
-                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Deaths: "+TextFormat.WHITE+player.getDeaths());
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Levels: "+TextFormat.WHITE+levels);
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Experience: "+TextFormat.WHITE+experience);
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Kills: "+TextFormat.WHITE+kills);
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Highest Kill-streak: "+TextFormat.WHITE+streaks);
+                    sender.sendMessage(TextFormat.GREEN+"| "+TextFormat.GRAY+"Most Deaths: "+TextFormat.WHITE+deaths);
                     sender.sendMessage(TextFormat.GREEN+"= "+TextFormat.YELLOW+"Usage: /stats <name>"+TextFormat.GREEN+" =");
                     break;
                 case "form":
                     String title = player.getAlias()+"'s Leaderboard";
                     String content =
-                            "Levels: "+player.getLevels()+"\n"+
-                            "Experience: "+player.getXp()+"\n"+
-                            "Most Kills: "+player.getKills()+"\n"+
-                            "Highest Kill-streak: "+player.getKillStreak()+"\n"+
-                            "Most Deaths: "+player.getDeaths()+"\n";
+                            "Levels: "+levels+"\n"+
+                            "Experience: "+experience+"\n"+
+                            "Most Kills: "+kills+"\n"+
+                            "Highest Kill-streak: "+streaks+"\n"+
+                            "Most Deaths: "+deaths+"\n";
                     FormWindow window = new FormWindowModal(title, content, "search", "close");
                     formAPI.add("profile", window);
                     player.showFormWindow(formAPI.get("profile"), formAPI.getId("profile"));

@@ -1,6 +1,6 @@
 name: Afterlife
 main: Afterlife.Main
-version: 3.0.3
+version: 3.0.4
 api: 1.0.9
 author: Atom
 depend:

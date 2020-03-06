@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'Afterlife'
-version '3.0.4'
+version '4.0.4'
 
 sourceCompatibility = 1.8
 
@@ -14,9 +14,9 @@ repositories {
 
 dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
-    implementation "com.github.FoxValleyMC:PlayerAPI:03832a6455"
+    implementation "com.github.FoxValleyMC:PlayerAPI:334952f85e"
     implementation "com.github.FoxValleyMc:FormAPI:master-SNAPSHOT"
-    implementation "com.github.FoxValleyMC:NukkitDB:master-SNAPSHOT"
+    implementation "com.github.FoxValleyMC:NukkitDB:86616cfab9"
 }
 
 jar {

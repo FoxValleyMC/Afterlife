@@ -69,7 +69,7 @@ victory-effects:
   - "1:2:100"
 
 # connect to mongo db database - depend on "NukkitDb" plugin
-database: ""
+use-MongoDB: false
 collection: ""
 
 

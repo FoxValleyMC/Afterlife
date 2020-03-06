@@ -61,8 +61,8 @@ public class Main extends PluginBase {
         texts = new Config(this.getDataFolder()+"/texts.yml", Config.YAML);
 
         // disable if config empty
-        if (getConfig().getString("database").isEmpty() || getConfig().getString("collection").isEmpty()) {
-            getLogger().error("Please edit config...");
+        if (!getConfig().getBoolean("use-MongoDB") || getConfig().getString("collection").isEmpty()) {
+            getLogger().error("Please edit config");
             getServer().getPluginManager().disablePlugin(this);
         }
 

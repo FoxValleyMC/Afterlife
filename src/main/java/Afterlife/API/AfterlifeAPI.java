@@ -1,111 +1,139 @@
 package Afterlife.API;
 
-import NukkitDB.NukkitDB;
+import NukkitDB.Provider.MongoDB;
 import PlayerAPI.Overrides.PlayerAPI;
 
 public class AfterlifeAPI {
 
     public static int getKills(PlayerAPI player) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
         return Integer.parseInt(
-                NukkitDB.query(
-                        player.getUuid(), "uuid", database, collection
+                MongoDB.getDocument(
+                        MongoDB.getCollection(collection), "uuid", player.getUuid()
                 ).get("kills").toString()
         );
     }
 
     public static int getKillStreak(PlayerAPI player) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
         return Integer.parseInt(
-                NukkitDB.query(
-                        player.getUuid(), "uuid", database, collection
+                MongoDB.getDocument(
+                        MongoDB.getCollection(collection), "uuid", player.getUuid()
                 ).get("kill-streak").toString()
         );
     }
 
     public static int getDeaths(PlayerAPI player) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
         return Integer.parseInt(
-                NukkitDB.query(
-                        player.getUuid(), "uuid", database, collection
+                MongoDB.getDocument(
+                        MongoDB.getCollection(collection), "uuid", player.getUuid()
                 ).get("deaths").toString()
         );
     }
 
     public static int getLevels(PlayerAPI player) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
         return Integer.parseInt(
-                NukkitDB.query(
-                        player.getUuid(), "uuid", database, collection
+                MongoDB.getDocument(
+                        MongoDB.getCollection(collection), "uuid", player.getUuid()
                 ).get("levels").toString()
         );
     }
 
     public static int getXp(PlayerAPI player) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
         return Integer.parseInt(
-                NukkitDB.query(
-                        player.getUuid(), "uuid", database, collection
+                MongoDB.getDocument(
+                        MongoDB.getCollection(collection), "uuid", player.getUuid()
                 ).get("global-xp").toString()
         );
     }
 
     public static int getNeededXp(PlayerAPI player) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
         return Integer.parseInt(
-                NukkitDB.query(
-                        player.getUuid(), "uuid", database, collection
+                MongoDB.getDocument(
+                        MongoDB.getCollection(collection), "uuid", player.getUuid()
                 ).get("experience").toString()
         );
     }
 
     public static void addKill(PlayerAPI player) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
         int currentData = getKills(player);
         int updatedData = currentData + 1;
         int currentStreak = getKillStreak(player);
         int updatedStreak = currentStreak + 1;
-        NukkitDB.updateDocument(player.getUuid(), "uuid", "kills", updatedData, database, collection);
-        NukkitDB.updateDocument(player.getUuid(), "uuid", "kill-streak", updatedStreak, database, collection);
+        MongoDB.updateOne(
+                MongoDB.getCollection(collection),
+                "uuid",
+                player.getUuid(),
+                "kills",
+                updatedData
+        );
+        MongoDB.updateOne(
+                MongoDB.getCollection(collection),
+                "uuid",
+                player.getUuid(),
+                "kill-streak",
+                updatedStreak
+        );
     }
 
     public static void addDeath(PlayerAPI player) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
         int currentData = getDeaths(player);
         int updatedData = currentData + 1;
-        NukkitDB.updateDocument(player.getUuid(), "uuid", "kills", updatedData, database, collection);
-        NukkitDB.updateDocument(player.getUuid(), "uuid", "kill-streak", 0, database, collection);
+        MongoDB.updateOne(
+                MongoDB.getCollection(collection),
+                "uuid",
+                player.getUuid(),
+                "kills",
+                updatedData
+        );
+        MongoDB.updateOne(
+                MongoDB.getCollection(collection),
+                "uuid",
+                player.getUuid(),
+                "kill-streak",
+                0
+        );
     }
 
     public static void addXp(PlayerAPI player, int amount) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
         Afterlife.Main main = Afterlife.Main.getInstance();
         int xp = getNeededXp(player) + amount;
         int abs = Math.abs(xp - main.getConfig().getInt("xp-levelup-amount"));
-        NukkitDB.updateDocument(player.getUuid(), "uuid", "global-xp", xp, database, collection);
+        MongoDB.updateOne(
+                MongoDB.getCollection(collection),
+                "uuid",
+                player.getUuid(),
+                "global-xp",
+                xp
+        );
         if (xp >= main.getConfig().getInt("xp-levelup-amount")) {
             addLevel(player);
-            NukkitDB.updateDocument(
-                    player.getUuid(), "uuid", "experience", abs, database, collection
+            MongoDB.updateOne(
+                    MongoDB.getCollection(collection),
+                    "uuid",
+                    player.getUuid(),
+                    "experience",
+                    abs
             );
         } else {
-            NukkitDB.updateDocument(
-                    player.getUuid(), "uuid", "experience", xp, database, collection
+            MongoDB.updateOne(
+                    MongoDB.getCollection(collection),
+                    "uuid",
+                    player.getUuid(),
+                    "experience",
+                    xp
             );
         }
     }
 
     public static void removeXp(PlayerAPI player, int amount) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
         Afterlife.Main main = Afterlife.Main.getInstance();
         int xp = getNeededXp(player) - amount;
@@ -115,38 +143,60 @@ public class AfterlifeAPI {
         if (xp < 0) {
             if (getLevels(player) > 0) {
                 removeLevel(player);
-                NukkitDB.updateDocument(
-                        player.getUuid(), "uuid", "experience", difference, database, collection
+                MongoDB.updateOne(
+                        MongoDB.getCollection(collection),
+                        "uuid",
+                        player.getUuid(),
+                        "experience",
+                        difference
                 );
             } else {
-                NukkitDB.updateDocument(
-                        player.getUuid(), "uuid", "experience", 0, database, collection
+                MongoDB.updateOne(
+                        MongoDB.getCollection(collection),
+                        "uuid",
+                        player.getUuid(),
+                        "experience",
+                        0
                 );
             }
         } else {
-            NukkitDB.updateDocument(
-                    player.getUuid(), "uuid", "experience", xp, database, collection
+            MongoDB.updateOne(
+                    MongoDB.getCollection(collection),
+                    "uuid",
+                    player.getUuid(),
+                    "experience",
+                    xp
             );
         }
-        NukkitDB.updateDocument(
-                player.getUuid(), "uuid", "global-xp", globalXp, database, collection
+        MongoDB.updateOne(
+                MongoDB.getCollection(collection),
+                "uuid",
+                player.getUuid(),
+                "experience",
+                globalXp
         );
     }
 
     public static void addLevel(PlayerAPI player) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
-        NukkitDB.updateDocument(
-                player.getUuid(), "uuid", "levels", getLevels(player) + 1, database, collection
+        MongoDB.updateOne(
+                MongoDB.getCollection(collection),
+                "uuid",
+                player.getUuid(),
+                "levels",
+                getLevels(player) + 1
         );
     }
 
     public static void removeLevel(PlayerAPI player) {
-        String database = Afterlife.Main.getInstance().getConfig().getString("database");
         String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
         if (getLevels(player) > 0) {
-            NukkitDB.updateDocument(
-                    player.getUuid(), "uuid", "levels", getLevels(player) + 1, database, collection
+            MongoDB.updateOne(
+                    MongoDB.getCollection(collection),
+                    "uuid",
+                    player.getUuid(),
+                    "levels",
+                    getLevels(player) - 1
             );
         }
     }

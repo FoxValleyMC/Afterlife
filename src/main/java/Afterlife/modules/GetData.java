@@ -2,7 +2,7 @@ package Afterlife.modules;
 
 
 import Afterlife.Main;
-import NukkitDB.NukkitDB;
+import NukkitDB.Provider.MongoDB;
 import cn.nukkit.utils.TextFormat;
 
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public class GetData {
 
         Map<String, Integer> stats = new HashMap<>();
         Map<String, Integer> sort;
-        for (Map<String, Object> objectMap : NukkitDB.GetAll(database, collection)) {
+        for (Map<String, Object> objectMap : MongoDB.getAllFromCollection(MongoDB.getCollection(collection))) {
             if (objectMap.containsKey(type)) {
                 stats.put(objectMap.get("name").toString(), Integer.parseInt(objectMap.get(type).toString()));
             }

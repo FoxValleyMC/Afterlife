@@ -2,7 +2,7 @@ package Afterlife.events;
 
 import Afterlife.Main;
 import Afterlife.handler.FloatingTextHandler;
-import NukkitDB.NukkitDB;
+import NukkitDB.Provider.MongoDB;
 import PlayerAPI.Overrides.PlayerAPI;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
@@ -26,10 +26,9 @@ public class JoinEvent implements Listener {
         PlayerAPI player = (PlayerAPI) event.getPlayer();
         String uuid = player.getUuid();
 
-        String database = plugin.getConfig().getString("database");
         String collection = plugin.getConfig().getString("collection");
 
-        if (NukkitDB.query(uuid, "uuid", database, collection) == null) {
+        if (MongoDB.getDocument(MongoDB.getCollection(collection), "uuid", uuid) == null) {
             Map<String, Object> objectMap = new HashMap<>();
             objectMap.put("uuid", uuid);
             objectMap.put("name", player.getName().toLowerCase());
@@ -39,7 +38,7 @@ public class JoinEvent implements Listener {
             objectMap.put("experience", 0);
             objectMap.put("global-xp", 0);
             objectMap.put("levels", 0);
-            NukkitDB.insertDocument(objectMap, database, collection);
+            MongoDB.insertOne(objectMap, MongoDB.getCollection(collection));
         }
 
 
